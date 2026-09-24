@@ -101,8 +101,11 @@ streams justify Kafka, but does not operate both systems.
 
 FastAPI is the primary route because it keeps the LangGraph integration and
 backend service in one typed Python codebase. A Java-focused student may replace
-this route with Spring Boot before implementation begins; implementing both
-routes is not a graduation requirement.
+this route with Spring Boot only when the target role is explicitly Java-heavy
+and the mentor approves before Sprint 1; see [Technical Learning Architecture
+§17](technical-learning-architecture.md#17-spring-boot-alternative) for the
+exact substitution scope. Implementing both routes is not a graduation
+requirement.
 
 Every required tool follows the
 [Zero-Cost Tooling Policy](free-tooling-policy.md): no payment method, trial
@@ -182,7 +185,8 @@ documentation, and evidence.
 - Session 3 establishes CI and the merge gate; Session 17 extends it to the
   zero-cost CD path.
 - ADRs, runbooks, incident reports, evaluations, performance reports, and the
-  evidence ledger live under repository `docs/`; the Wiki is not used.
+  evidence ledger live under `docs/` in the student's separate private
+  implementation repository; the Wiki is not used.
 - Every session starts from the Project board and ends with updated ownership,
   status, and evidence.
 
@@ -263,6 +267,23 @@ Sessions 10 and 16 are mock weeks: there is no regular lesson. The live
 session is a formal mock defense plus gate evidence acceptance. This keeps
 the mentor's week within two hours and gives the student a focused
 assessment week with no new feature work assigned.
+
+Mock weeks are consolidation weeks. The mentor seeds no new backlog and assigns
+no new stories; the student uses the freed capacity to close remediation,
+finalize the gate evidence package, prepare the mock package, rest, or read
+ahead. For working students this is a deliberate breather built into the
+19-session arc. The Session 9 to Session 10 stretch carries the heaviest
+between-session load in the track; the mentor names this explicitly in
+Session 9 so the student can plan both intervals.
+
+Teaching displaced by the mock-week format moves with it rather than dropping
+out. The Session 10 RAG teaching (retrieval, citations, structured-data
+routing, LLM evaluation) now lives in the Session 9 live session, with
+ingestion as templated pre-work released after Session 8. The Session 16
+performance teaching (load testing, query plans, bottleneck diagnosis, caching
+and backpressure) becomes structured pre-work released with the Session 16
+mock packet after Session 13 — load-test templates plus a query-plan guide —
+and bottleneck reasoning is probed directly in the mock defense.
 
 | Mock | Prompt released | Submission deadline | Live session |
 |---|---|---|---|
@@ -352,28 +373,39 @@ in the order below.
 | Sprint 6 | 14-16 | Security, operations, and performance | Gate E |
 | Sprint 7 | 17-19 | Cloud delivery, Kubernetes, and capstone | Gate F |
 
+### Pre-course checklist (before Session 1)
+
+The student completes this setup before the first session so Session 1 can
+focus on product, roles, baseline, and planning rather than tooling:
+
+- Create the private GitHub repository and invite the mentor as a collaborator
+- Create the GitHub Project with `Backlog / Sprint / In Review / Done` columns
+- Add Issue and PR templates; create the `docs/` structure and evidence ledger
+- Complete the hardware and environment checklist (Python, Docker, Ollama)
+- Draft the versioned zero-cost tool manifest for mentor approval in Session 1
+
 ### Session-by-session design
 
 | Session | Engineering focus | Live mentor work | Required between-session artifact or gate |
 |---:|---|---|---|
-| 1 | Project kickoff and SDE baseline | Review the restaurant product, assign Student Engineer and Mentor/Tech Lead roles, assess backend and LLM knowledge, create the private repository and four-column GitHub Project, establish the Sprint 1 backlog and evidence ledger, approve the zero-cost tool manifest, and practice a two-minute project pitch | Project charter, skill baseline, target-role profile, private repo with mentor access, `Backlog / Sprint / In Review / Done` board, Issue and PR templates, prioritized Sprint 1 backlog, `docs/` structure, hardware and environment checklist, versioned zero-cost tool manifest, and accepted 19-session plan |
+| 1 | Project kickoff and SDE baseline | Review the restaurant product, assign Student Engineer and Mentor/Tech Lead roles, assess backend and LLM knowledge, establish the Sprint 1 backlog and evidence ledger, approve the zero-cost tool manifest, and practice a two-minute project pitch | Project charter, skill baseline, target-role profile, prioritized Sprint 1 backlog, approved zero-cost tool manifest, accepted 19-session plan, and completed pre-course checklist |
 | 2 | FastAPI and API design | Design resource boundaries, request and response schemas, error taxonomy, versioning, request IDs, health, and readiness; review the first vertical slice | Runnable FastAPI service, OpenAPI baseline, shared result envelope, middleware, unit tests, and API-design ADR |
 | 3 | PostgreSQL, migrations, containers, and CI | Trace one request to a committed row; review SQLAlchemy boundaries, Alembic strategy, configuration, Docker Compose, private-repository Actions allowance, self-hosted or local CI fallback, trunk rules, merge-guard or native branch protection, and zero-dollar usage controls | Schema baseline, reversible migration, local stack, stable lint/type/test/migration/image checks, demonstrated rejected failing change, merge-guard or native required checks, squash-merge evidence, clean-start guide, Actions usage control, and **Gate A** |
 | 4 | Reservation domain and SQL design | Model restaurant time, tables, combinations, slots, holds, reservations, events, and state transitions; defend indexes and transaction boundaries | Reservation schema and repositories, search and hold contracts, seed data, transaction ADR, and integration-test skeleton |
 | 5 | Concurrency, idempotency, and Redis-compatible caching | Reproduce the last-table race; review locks, constraints, optimistic versions, retry semantics, safe cache-aside use with Valkey, rate limits, and cache outage behavior | Working prepare/confirm/modify/cancel flow, repeatable concurrency tests, idempotency records, Valkey degradation test, and **Gate B** |
 | 6 | Local model gateway and LangGraph state | Separate deterministic code from model behavior; design fake and Ollama adapters, optional unpaid hosted adapters, deadlines, retries, graph state, nodes, and routing; recheck model terms and hardware | Provider-neutral gateway, deterministic fake, local Qwen3 path, graph skeleton, information and action routes, node tests, and model-boundary ADR |
 | 7 | Tool Calling and confirmation safety | Review typed read and command tools, server-injected context, authorization, prepare-review-confirm, prompt injection, and audit requirements | Typed tools calling application services, pending-action protocol, ambiguous-confirmation tests, authorization tests, and tool-contract documentation |
-| 8 | Agent reliability, memory, and handoff | Debug invalid tool output and a model timeout; review checkpoints, cancellation, graph limits, fallback, human handoff, traces, and evaluation cases | End-to-end text-agent path, bounded failure handling, handoff flow, trace correlation, initial agent evaluation set, Sprint 3 demo, and release of the Session 10 mock packet |
-| 9 | Local RAG ingestion and pgvector | Decide what belongs in RAG; review document versions, metadata, chunking, local MiniLM embeddings, asynchronous ingestion, and atomic activation | Seeded policy corpus, source manifest, local embedding adapter, ingestion worker, versioned chunks and embeddings, pgvector index, and rollback test |
+| 8 | Agent reliability, memory, and handoff | Debug invalid tool output and a model timeout; review checkpoints, cancellation, graph limits, fallback, human handoff, traces, and evaluation cases; release the Session 10 mock packet and the RAG ingestion pre-work templates | End-to-end text-agent path, bounded failure handling, handoff flow, trace correlation, initial agent evaluation set, Sprint 3 demo, and completed RAG ingestion pre-work (seeded corpus, versioned chunks, local embeddings, pgvector index, atomic activation, rollback test) |
+| 9 | RAG retrieval, citations, routing, and evaluation | Teach retrieval relevance, citation assembly, structured-data versus RAG routing, and LLM evaluation methodology; review the ingestion pre-work design and rollback evidence | Retrieval API with citations, structured-versus-RAG routing ADR, RAG evaluation report (eval set, judge design, metrics, failure analysis), and Gate C evidence in progress |
 | 10 | Mock week: mid-track deep dive and Gate C | **No regular lesson.** Accept Gate C evidence against the checklist; run the formal mid-track deep-dive mock as a real interview; deliver rubric feedback and score | Gate C evidence package plus the Session 10 mock package (written answers and recorded walkthrough), both submitted at least 48 hours before the session |
 | 11 | Takeout ordering and deterministic pricing | Model menu versions, modifiers, carts, totals, order states, and fulfillment; review server-side calculation and confirmation | Menu and ordering schema, price engine, prepare-confirm order API, state-transition tests, and order OpenAPI contract |
 | 12 | RabbitMQ, events, and transactional outbox | Design event envelopes, exchanges, routing, producer acknowledgement, outbox atomicity, relay behavior, and schema evolution | Versioned event contracts, outbox table and relay, RabbitMQ topology, correlation and causation IDs, and integration tests |
-| 13 | Idempotent workers, retries, and dead letters | Inject duplicate delivery, broker outage, worker crash, and poison message; compare RabbitMQ with Kafka | Notification and indexing workers, consumer deduplication, bounded retries, DLQ and replay command, recovery runbook, release of the Session 16 mock packet, and **Gate D** |
+| 13 | Idempotent workers, retries, and dead letters | Inject duplicate delivery, broker outage, worker crash, and poison message; compare RabbitMQ with Kafka; release the Session 16 mock packet and the performance pre-work guides | Notification and indexing workers, consumer deduplication, bounded retries, DLQ and replay command, recovery runbook, and **Gate D** |
 | 14 | Authentication, authorization, and LLM security | Threat-model customer tokens, staff JWT/RBAC, tenant isolation, PII, secrets, rate limits, prompt injection, and unsafe tools | Auth and RBAC implementation, negative authorization suite, audit records, PII-redaction checks, threat model, and security review |
 | 15 | Observability, SLOs, and incident response | Trace a request through API, agent, database, outbox, broker, and worker; define service indicators, alerts, and an incident process | OpenTelemetry instrumentation, structured logs, dashboards, SLO proposal, alerts, runbooks, and one mentored incident drill |
 | 16 | Mock week: late-track deep dive and Gate E | **No regular lesson.** Accept Gate E evidence against the checklist; run the formal late-track deep-dive mock as a real interview; deliver rubric feedback and score | Gate E evidence package plus the Session 16 mock package (written answers and recorded walkthrough), both submitted at least 48 hours before the session |
 | 17 | Zero-cost CI/CD and AWS architecture mapping | Build an immutable image; deploy an ephemeral kind environment in GitHub Actions or the local fallback; run migration, smoke, and rollback checks; map the same system to ECS Fargate, RDS, ElastiCache, Amazon MQ, S3, ECR, Secrets Manager, and CloudWatch without provisioning them; run a bounded debugging interview | Free CI workflow, local or ephemeral staging deployment, migration job, smoke test, rollback evidence, zero-cost audit, AWS architecture and cost-risk diagram, and no billable resource |
-| 18 | Kubernetes operations and system design | Operate the same images on kind or k3d; review probes, resources, configuration, secrets, migration jobs, HPA, rollout, rollback, and local-staging-versus-managed-cloud tradeoffs; run the combined system-design mock | Kubernetes manifests or chart, healthy rollout and rollback, pod failure drill, scaling and cloud-mapping explanation, capstone rehearsal, and resolved critical gaps |
+| 18 | Kubernetes operations and system design | Operate the same images on kind or k3d; review probes, resources, configuration, secrets, migration jobs, HPA, rollout, rollback, and local-staging-versus-managed-cloud tradeoffs; run the 40-minute system-design mock; use the remaining time for feedback and capstone actions | Kubernetes manifests or chart, healthy rollout and rollback, pod failure drill evidence submitted before the session, scaling and cloud-mapping explanation, and resolved critical gaps |
 | 19 | Capstone, project defense, and career evidence | Run the product demo, architecture defense, project deep dive, behavioral interview, evidence review, and resume verification | Passing hard-gate suite, final reports and runbooks, verified evidence ledger, approved truthful resume bullets, development plan, and **Gate F** |
 
 If a required artifact fails review, remediation happens between scheduled

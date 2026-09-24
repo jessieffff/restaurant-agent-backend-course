@@ -173,7 +173,8 @@ it leaves interview readiness incomplete and blocks Gate F until remediated.
 2. **Session 18: combined system design, 40 minutes**  
    Design a multi-restaurant reservation and takeout platform, then extend it
    with the model gateway, agent workflow, RAG, evaluation, safety, latency, and
-   cost controls. The remaining session time records feedback and capstone
+   cost controls. The pod failure drill is submitted as asynchronous evidence
+   before the session; the remaining live time records feedback and capstone
    actions.
 3. **Session 19: capstone interview, 60 minutes**  
    Allocate 10 minutes to the product demo, 15 minutes to architecture and

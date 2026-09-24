@@ -123,8 +123,10 @@ for required artifacts and acceptance gates.
 | Cloud learning | AWS managed-service architecture mapping without required provisioning |
 
 FastAPI is the primary implementation route. A Java-focused learner may select
-Spring Boot before implementation begins, but implementing both stacks is not
-required.
+Spring Boot only when the target role is explicitly Java-heavy and the mentor
+approves before Sprint 1 (see [Technical Learning Architecture
+§17](technical-learning-architecture.md#17-spring-boot-alternative));
+implementing both stacks is not required.
 
 ## Repository guide
 
@@ -248,6 +250,6 @@ Attendance alone does not complete the track.
 
 ## Scope and access
 
-This is a private curriculum repository. It contains course design and
+This is a public curriculum repository. It contains course design and
 synthetic project requirements, not student submissions or real customer data.
-No open-source license is included.
+All rights reserved; see [LICENSE](LICENSE).

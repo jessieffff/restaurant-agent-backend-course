@@ -139,8 +139,9 @@ records technical decisions in the repository, not only in private notes.
 - The mentor targets a two-business-day turnaround for review.
 - The mentor reviews the ready pull request and linked Issue directly; a
   separate status document is not required.
-- The mentor releases the Session 10 mock packet after Session 8 and the
-  Session 16 mock packet after Session 13.
+- The mentor releases the Session 10 mock packet and the RAG ingestion
+  pre-work templates after Session 8, and the Session 16 mock packet and the
+  performance pre-work guides after Session 13.
 - Mock packages are due at least 48 hours before the live defense, and mentor
   review is timeboxed to 45 minutes per package, including the gate evidence
   package.
@@ -149,6 +150,9 @@ records technical decisions in the repository, not only in private notes.
   bounded to two hours: at most 45 minutes of combined async review, 10
   minutes of preparation, 60 minutes live, and about 5 minutes to record the
   rubric.
+- Mock weeks carry no new feature work: the mentor seeds no new backlog and
+  assigns no new stories. The student uses the week to close remediation,
+  finalize the gate evidence package, prepare the mock package, or rest.
 - A late package is marked `NOT_ASSESSED` rather than creating an emergency
   review obligation; it follows the documented remediation process.
 - A blocker lasting more than one student work session is escalated with logs,
